@@ -1,0 +1,50 @@
+/* SIDEBAR */
+    .sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      background: #f7f3ec;
+      border-right: 0.5px solid rgba(160,140,100,0.18);
+      display: flex; flex-direction: column;
+      position: fixed; top: 0; left: 0; bottom: 0;
+      z-index: 10; overflow: hidden;
+    }
+    .sidebar-logo {
+      padding: 1.6rem 1.5rem 1.4rem;
+      border-bottom: 0.5px solid rgba(160,140,100,0.18);
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .sidebar-logo img { height: 35px; width: auto; }
+    .sidebar-nav { padding: .55rem 0.75rem; flex: 1; overflow-y: auto; }
+    .sidebar-section-label {
+      font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-muted); font-weight: 600;
+      padding: 0 0.75rem; margin-bottom: 0.6rem; margin-top: 0.5rem;
+    }
+    .sidebar-section-label:first-child { margin-top: 0; }
+    .nav-item {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.55rem 0.85rem; border-radius: 12px; cursor: pointer;
+      font-size: 0.875rem; font-weight: 500; color: var(--text-muted);
+      margin-bottom: 4px; position: relative; text-decoration: none;
+      user-select: none; overflow: visible; min-height: 40px;
+    }
+    .nav-item:hover { color: var(--ink); }
+    .nav-item.active { color: #fff; }
+    .nav-item.active .nav-icon { position: relative; z-index: 1; color: var(--gold) !important; }
+    .nav-item.active .nav-label { position: relative; z-index: 1; color: #fff; }
+    .nav-item .select-bg {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 220px; height: 220px; object-fit: contain;
+      z-index: 0; pointer-events: none; display: none;
+    }
+    .nav-item.active .select-bg { display: block; }
+    .nav-icon { font-size: 1.05rem; flex-shrink: 0; color: var(--text-muted); transition: color 0.2s; position: relative; z-index: 1; }
+    .nav-item:hover .nav-icon { color: var(--ink); }
+    .nav-label { font-size: 0.875rem; position: relative; z-index: 1; }
+    .sidebar-divider { height: 0.5px; background: rgba(160,140,100,0.18); margin: 0.75rem 0; }
+    .gold-rule { margin: 0; padding: 0; position: relative; flex-shrink: 0; }
+    .gold-rule img.gold-rule-bg { display: block; width: 148%; margin-left: -8%; margin-bottom: -22%; }
+    .gold-rule-text { position: absolute; top: 58%; left: 2.8rem; right: 0.1rem; display: flex; flex-direction: column; }
+    .gold-rule-title { font-size: 0.95rem; font-weight: 700; color: var(--gold); margin-bottom: 0.3rem; }
+    .gold-rule-body { font-size: 0.92rem; color: #fff; line-height: 1.65; font-weight: 500; }
+    .gold-rule-deco { display: block; width: 88px; height: auto; margin-top: 0.6rem; }

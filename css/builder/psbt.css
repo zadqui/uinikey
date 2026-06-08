@@ -1,0 +1,64 @@
+/* FIRMAR PSBT */
+    .psbt-dropzone { border: 2px dashed rgba(160,140,100,0.3); border-radius: 20px; background: rgba(242,237,228,0.35); padding: 2.5rem 1.5rem; text-align: center; cursor: pointer; transition: border-color 0.25s, background 0.25s, transform 0.22s; margin-bottom: 1.1rem; position: relative; }
+    .psbt-dropzone:hover, .psbt-dropzone.dragover { border-color: var(--gold); background: rgba(212,160,23,0.06); transform: scale(1.005); }
+    .psbt-dropzone.has-file { border-color: rgba(52,168,83,0.45); background: rgba(52,168,83,0.04); }
+    .psbt-drop-icon { font-size: 2.2rem; color: var(--text-muted); margin-bottom: 0.75rem; transition: color 0.2s, transform 0.2s; display: block; }
+    .psbt-dropzone:hover .psbt-drop-icon { color: var(--gold); transform: translateY(-3px); }
+    .psbt-dropzone.has-file .psbt-drop-icon { color: #34a853; }
+    .psbt-drop-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 500; color: var(--ink); margin-bottom: 0.3rem; }
+    .psbt-drop-sub { font-size: 0.78rem; color: var(--text-muted); }
+    .psbt-drop-input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .psbt-or { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem; }
+    .psbt-or-line { flex: 1; height: 0.5px; background: rgba(160,140,100,0.2); }
+    .psbt-or-text { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .psbt-textarea { width: 100%; background: rgba(242,237,228,0.55); border: 0.5px solid rgba(160,140,100,0.25); border-radius: 16px; padding: 1rem 1.1rem; font-family: 'DM Mono', 'Courier New', monospace; font-size: 0.78rem; color: var(--ink); resize: vertical; outline: none; transition: border-color 0.2s, background 0.2s, box-shadow 0.2s; height: 120px; min-height: 80px; margin-bottom: 0.75rem; }
+    .psbt-textarea:focus { border-color: var(--gold); background: rgba(255,255,255,0.9); box-shadow: 0 0 0 3px rgba(212,160,23,0.1); }
+    .psbt-action-row { display: flex; gap: 0.65rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+    .psbt-btn { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.2rem; border-radius: 14px; font-family: var(--font-body); font-size: 0.84rem; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; }
+    .psbt-btn-primary { background: linear-gradient(135deg, #c9930f 0%, var(--gold-light) 100%); color: #fff; box-shadow: 0 4px 14px rgba(212,160,23,0.3); }
+    .psbt-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212,160,23,0.4); }
+    .psbt-btn-primary:active { transform: translateY(0); }
+    .psbt-btn-secondary { background: rgba(255,255,255,0.7); border: 0.5px solid rgba(160,140,100,0.28) !important; color: var(--ink); }
+    .psbt-btn-secondary:hover { background: rgba(255,255,255,0.95); transform: translateY(-1px); }
+    .psbt-status-card { border-radius: 20px; overflow: hidden; margin-bottom: 1.1rem; border: 0.5px solid rgba(160,140,100,0.18); display: none; }
+    .psbt-status-card.visible { display: block; animation: cardSlideIn 0.38s cubic-bezier(0.22,1,0.36,1) both; }
+    .psbt-status-header { background: rgba(242,237,228,0.8); padding: 0.9rem 1.1rem; display: flex; align-items: center; gap: 0.65rem; border-bottom: 0.5px solid rgba(160,140,100,0.15); }
+    .psbt-status-title { font-size: 0.85rem; font-weight: 700; color: var(--ink); }
+    .psbt-status-badge { margin-left: auto; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.65rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .badge-pending { background: rgba(249,171,0,0.12); border: 0.5px solid rgba(249,171,0,0.3); color: #9a6b00; }
+    .badge-complete { background: rgba(52,168,83,0.12); border: 0.5px solid rgba(52,168,83,0.3); color: #1e6e35; }
+    .badge-error { background: rgba(220,53,69,0.1); border: 0.5px solid rgba(220,53,69,0.25); color: #9b1c2a; }
+    .psbt-status-body { background: rgba(255,255,255,0.65); padding: 1rem 1.1rem; }
+    .psbt-signer-list { display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 0.9rem; }
+    .psbt-signer-row { display: flex; align-items: center; gap: 0.75rem; background: rgba(242,237,228,0.5); border: 0.5px solid rgba(160,140,100,0.15); border-radius: 12px; padding: 0.7rem 0.9rem; transition: background 0.2s; }
+    .psbt-signer-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; }
+    .signer-signed { background: rgba(52,168,83,0.12); color: #1e6e35; }
+    .signer-pending { background: rgba(160,140,100,0.1); color: var(--text-muted); }
+    .psbt-signer-info { flex: 1; }
+    .psbt-signer-name { font-size: 0.82rem; font-weight: 600; color: var(--ink); }
+    .psbt-signer-fp { font-size: 0.72rem; color: var(--text-muted); font-family: 'DM Mono', 'Courier New', monospace; }
+    .psbt-signer-status { font-size: 0.75rem; font-weight: 600; }
+    .status-signed { color: #1e6e35; }
+    .status-pending { color: var(--text-muted); }
+    .psbt-progress-wrap { margin-bottom: 1rem; }
+    .psbt-progress-label { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 0.4rem; }
+    .psbt-progress-label span:first-child { font-weight: 600; color: var(--ink); }
+    .psbt-progress-label span:last-child { color: var(--text-muted); }
+    .psbt-progress-track { height: 6px; background: rgba(160,140,100,0.15); border-radius: 99px; overflow: hidden; }
+    .psbt-progress-fill { height: 100%; background: linear-gradient(90deg, #c9930f, var(--gold-light)); border-radius: 99px; transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1); }
+    .psbt-tx-details { display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; margin-bottom: 0.85rem; }
+    .psbt-tx-item { background: rgba(242,237,228,0.45); border: 0.5px solid rgba(160,140,100,0.12); border-radius: 12px; padding: 0.65rem 0.9rem; }
+    .psbt-tx-label { font-size: 0.68rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem; }
+    .psbt-tx-value { font-size: 0.88rem; font-weight: 600; color: var(--ink); font-family: 'DM Mono', 'Courier New', monospace; }
+    .psbt-tx-value.gold { color: #9a6b00; }
+    .psbt-final-strip { border-top: 0.5px solid rgba(160,140,100,0.15); padding-top: 1.1rem; margin-top: 0.5rem; display: flex; gap: 0.65rem; flex-wrap: wrap; }
+    .psbt-btn-broadcast { flex: 1; background: linear-gradient(135deg, #1a5e2e 0%, #27a54a 100%); color: #fff; border: none; box-shadow: 0 4px 16px rgba(39,165,74,0.28); display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85rem 1.4rem; border-radius: 14px; font-family: var(--font-body); font-size: 0.88rem; font-weight: 700; cursor: pointer; transition: all 0.22s; }
+    .psbt-btn-broadcast:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(39,165,74,0.35); }
+    .psbt-btn-broadcast:active { transform: translateY(0); }
+    .psbt-btn-broadcast:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--ink); color: #fff; border-radius: 14px; padding: 0.85rem 1.25rem; font-size: 0.82rem; font-weight: 500; display: flex; align-items: center; gap: 0.65rem; box-shadow: 0 8px 28px rgba(26,22,18,0.22); z-index: 100; animation: toastIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both; pointer-events: none; }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(16px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes toastOut { to { opacity: 0; transform: translateY(10px) scale(0.95); } }
+    .toast.hiding { animation: toastOut 0.25s ease both; }
+    .toast i { font-size: 1.05rem; color: var(--gold-light); }

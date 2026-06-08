@@ -1,0 +1,88 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #D4A017;
+      --gold-light: #F0B429;
+      --ink: #1a1612;
+      --text-muted: #6b6050;
+      --bg: #f2ede4;
+      --sidebar-w: 260px;
+      --font-display: 'EB Garamond', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      color: var(--ink);
+      font-family: var(--font-body);
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+
+    .section { display: none; animation: none; }
+    .section.active { display: flex; animation: sectionFadeIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    @keyframes sectionFadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes cardSlideIn {
+      from { opacity: 0; transform: translateY(24px) scale(0.985); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .section.active .main-card { animation: cardSlideIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.07s both; }
+    .section.active .glossary-card { animation: cardSlideIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both; }
+    .section.active .page-header { animation: cardSlideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.0s both; }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.55; transform: scale(0.75); }
+    }
+    .live-dot { animation: livePulse 1.8s ease-in-out infinite; }
+
+    @keyframes spinnerRot { to { transform: rotate(360deg); } }
+    .psbt-spinner {
+      width: 20px; height: 20px;
+      border: 2.5px solid rgba(212,160,23,0.2);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spinnerRot 0.8s linear infinite;
+      display: none;
+    }
+    .psbt-spinner.visible { display: inline-block; }
+
+    .nav-item { transition: color 0.2s, background 0.18s; }
+    .nav-item:hover { background: rgba(212,160,23,0.06); }
+
+    .next-btn { transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), filter 0.2s; }
+    .next-btn:hover { transform: translateY(-3px) scale(1.03); filter: brightness(1.1); }
+    .next-btn:active { transform: translateY(1px) scale(0.98); }
+
+    .export-btn { transition: transform 0.18s, background 0.2s, border-color 0.2s, box-shadow 0.2s; }
+    .export-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(26,22,18,0.1); }
+
+    .tl-option { transition: opacity 0.22s, transform 0.18s; }
+
+    .addr-row { transition: background 0.18s, border-color 0.18s, transform 0.18s; }
+    .addr-row:hover { transform: translateX(3px); }
+
+    .tl-panel { display: none; overflow: hidden; }
+    .tl-panel.visible { display: block; animation: panelOpen 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    @keyframes panelOpen {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes signerIn {
+      from { opacity: 0; transform: translateX(-12px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .signer-entry.new-entry { animation: signerIn 0.3s cubic-bezier(0.22,1,0.36,1) both; }
+
+    @keyframes copyFlash {
+      0%   { color: var(--gold); transform: scale(1.3); }
+      100% { color: var(--text-muted); transform: scale(1); }
+    }
+    .copy-flashed { animation: copyFlash 0.4s ease both; }
+
+    .app-shell { display: flex; min-height: 100vh; }

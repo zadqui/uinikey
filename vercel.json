@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/builder",
+      "destination": "/builder.html"
+    },
+    {
+      "source": "/privacidad",
+      "destination": "/privacidad.html"
+    },
+    {
+      "source": "/terminos",
+      "destination": "/terminos.html"
+    }
+  ]
+}

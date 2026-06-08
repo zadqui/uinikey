@@ -1,0 +1,44 @@
+/* UiniKey Builder styles - entry point */
+@import url("./builder/base.css");
+@import url("./builder/sidebar.css");
+@import url("./builder/layout.css");
+@import url("./builder/components.css");
+@import url("./builder/signers.css");
+@import url("./builder/timelocks.css");
+@import url("./builder/descriptor.css");
+@import url("./builder/addresses.css");
+@import url("./builder/psbt.css");
+@import url("./builder/responsive.css");
+
+.back-link { 
+    margin-bottom: 0; 
+}
+
+.sidebar-divider { margin: .55rem 0 .75rem; }
+
+.back-link:hover { 
+    background: rgba(212,160,23,0.06); 
+    color: var(--ink); 
+}
+
+.back-link:hover .nav-icon { 
+    color: var(--ink); 
+}
+
+.addr-autoswitch-icon {
+    color: #000;
+}
+
+.addr-privacy-icon {
+    color: #000;
+}
+
+.back-arrow {
+    width: 30px;
+    height: auto;
+    object-fit: contain;
+
+    transform: rotate(182deg);
+
+    flex-shrink: 0;
+}

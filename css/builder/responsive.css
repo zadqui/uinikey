@@ -1,0 +1,15 @@
+@media (max-width: 900px) {
+      .content-area { padding: 1.5rem; }
+      .right-panel { order: -1; }
+      .sidebar { position: relative; width: 100%; height: auto; }
+      .main-content { margin-left: 0; }
+      .app-shell { flex-direction: column; }
+      .timelock-grid { grid-template-columns: 1fr 1fr; }
+      .descriptor-meta { grid-template-columns: 1fr 1fr; }
+      .addr-type-tabs { flex-direction: column; }
+      .psbt-tx-details { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .timelock-grid { grid-template-columns: 1fr; }
+      .descriptor-meta { grid-template-columns: 1fr; }
+    }

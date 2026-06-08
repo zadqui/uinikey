@@ -1,0 +1,144 @@
+/* REGLAS DE GASTO */
+    .mn-block { margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 0.5px solid rgba(160,140,100,0.12); }
+    .mn-label { font-size: 0.8rem; font-weight: 600; color: var(--ink); margin-bottom: 0.75rem; letter-spacing: 0.01em; }
+    .mn-row { display: flex; align-items: center; gap: 0.75rem; }
+    .mn-number {
+      width: 64px; height: 64px;
+      background: rgba(242,237,228,0.8); border: 0.5px solid rgba(160,140,100,0.28);
+      border-radius: 16px; font-family: var(--font-display); font-size: 2rem; font-weight: 500;
+      color: var(--ink); text-align: center; outline: none;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s; -moz-appearance: textfield;
+    }
+    .mn-number::-webkit-outer-spin-button, .mn-number::-webkit-inner-spin-button { -webkit-appearance: none; }
+    .mn-number:focus { border-color: var(--gold); background: rgba(255,255,255,0.9); box-shadow: 0 0 0 3px rgba(212,160,23,0.1); }
+    .mn-of { font-size: 0.95rem; color: var(--text-muted); font-weight: 400; }
+    .mn-total { font-size: 0.95rem; color: var(--ink); font-weight: 600; }
+    .mn-badge {
+      margin-left: auto;
+      background: rgba(212,160,23,0.1); border: 0.5px solid rgba(212,160,23,0.25);
+      border-radius: 20px; padding: 0.3rem 0.85rem;
+      font-size: 0.75rem; font-weight: 600; color: #a07010;
+    }
+
+    .timelock-label { font-size: 0.8rem; font-weight: 600; color: var(--ink); margin-bottom: 0.75rem; letter-spacing: 0.01em; }
+
+    /* ── TIMELOCK GRID: opciones sin recuadro, SVG libre y grande ── */
+    .timelock-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 1rem;
+      margin-bottom: 1.1rem;
+    }
+
+    /* El contenedor de cada opción es transparente — sin borde, sin fondo */
+    .tl-option {
+      position: relative;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0.75rem 0.5rem 0.9rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      text-align: center;
+      /* Sutil línea inferior como único separador de estado */
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.22s, opacity 0.22s, transform 0.18s;
+    }
+    .tl-option:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+    }
+    /* Estado seleccionado: solo línea dorada debajo, sin caja */
+    .tl-option.selected {
+      border-bottom: 2px solid var(--gold);
+      opacity: 1;
+      transform: none;
+    }
+    /* Punto dorado de selección en la esquina superior derecha del área */
+    .tl-option.selected::after {
+      content: '';
+      position: absolute;
+      top: 0.4rem;
+      right: 0.4rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* El SVG flota completamente libre — grande, sin fondo ni borde */
+    .tl-svg-icon {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      display: block;
+      /* Sin background, sin border, sin padding */
+      filter: drop-shadow(0 2px 6px rgba(26,22,18,0.08));
+      transition: filter 0.2s, transform 0.2s;
+    }
+    .tl-option:hover .tl-svg-icon {
+      filter: drop-shadow(0 4px 12px rgba(212,160,23,0.18));
+    }
+    .tl-option.selected .tl-svg-icon {
+      filter: drop-shadow(0 3px 10px rgba(212,160,23,0.22));
+    }
+
+    .tl-name { font-size: 0.82rem; font-weight: 700; color: var(--ink); line-height: 1.2; }
+    .tl-desc { font-size: 0.73rem; color: var(--text-muted); line-height: 1.4; }
+
+    .tl-panel-inner {
+      background: rgba(242,237,228,0.45); border: 0.5px solid rgba(160,140,100,0.18);
+      border-radius: 16px; padding: 1.1rem 1.1rem 1rem;
+    }
+    .tl-panel-title { font-size: 0.82rem; font-weight: 700; color: var(--ink); margin-bottom: 0.9rem; }
+    .field-label { font-size: 0.78rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
+    .field-row { display: flex; gap: 0.6rem; margin-bottom: 0.9rem; align-items: flex-end; }
+    .field-input {
+      flex: 1; background: rgba(255,255,255,0.75);
+      border: 0.5px solid rgba(160,140,100,0.28); border-radius: 10px;
+      padding: 0.7rem 0.9rem; font-family: var(--font-body); font-size: 0.85rem; color: var(--ink);
+      outline: none; transition: border-color 0.2s, background 0.2s, box-shadow 0.2s; -moz-appearance: textfield;
+    }
+    .field-input::-webkit-outer-spin-button, .field-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+    .field-input:focus { border-color: var(--gold); background: rgba(255,255,255,0.95); box-shadow: 0 0 0 3px rgba(212,160,23,0.1); }
+    .field-select {
+      background: rgba(255,255,255,0.75); border: 0.5px solid rgba(160,140,100,0.28);
+      border-radius: 10px; padding: 0.7rem 0.9rem;
+      font-family: var(--font-body); font-size: 0.85rem; color: var(--ink);
+      outline: none; cursor: pointer; transition: border-color 0.2s; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6050' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 0.75rem center; padding-right: 2.2rem;
+    }
+    .field-select:focus { border-color: var(--gold); }
+    .field-date {
+      flex: 1; background: rgba(255,255,255,0.75);
+      border: 0.5px solid rgba(160,140,100,0.28); border-radius: 10px;
+      padding: 0.7rem 0.9rem; font-family: var(--font-body); font-size: 0.85rem; color: var(--ink);
+      outline: none; transition: border-color 0.2s;
+    }
+    .field-date:focus { border-color: var(--gold); background: rgba(255,255,255,0.95); }
+    .field-group { margin-bottom: 0.9rem; }
+    .xpub-input-sm {
+      width: 100%; background: rgba(255,255,255,0.75);
+      border: 0.5px solid rgba(160,140,100,0.28); border-radius: 10px;
+      padding: 0.7rem 0.9rem;
+      font-family: 'DM Mono', 'Courier New', monospace; font-size: 0.78rem; color: var(--ink);
+      resize: none; outline: none; transition: border-color 0.2s, background 0.2s; height: 68px;
+    }
+    .xpub-input-sm:focus { border-color: var(--gold); background: rgba(255,255,255,0.95); }
+    .combo-dur-row { display: flex; gap: 0.6rem; align-items: flex-end; margin-bottom: 0.9rem; }
+    .combo-dur-input { width: 100px; }
+    .panel-warn {
+      background: rgba(212,160,23,0.07); border: 0.5px solid rgba(212,160,23,0.2);
+      border-radius: 10px; padding: 0.65rem 0.85rem;
+      display: flex; gap: 0.55rem; align-items: flex-start; margin-top: 0.1rem;
+    }
+    .panel-warn-icon { font-size: 0.9rem; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
+    .panel-warn-text { font-size: 0.75rem; color: var(--text-muted); line-height: 1.55; }
+    .panel-warn-text code {
+      font-family: 'DM Mono', 'Courier New', monospace; font-size: 0.72rem;
+      background: rgba(212,160,23,0.12); padding: 1px 5px; border-radius: 4px; color: #8a6010;
+    }

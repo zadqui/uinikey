@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UiniKey — Bóveda Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <link rel="stylesheet" href="css/builder.css" />
+  <link rel="icon" href="assets/isotopowhite.svg">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <a href="/">
+        <img src="assets/logodark.svg" alt="Uinik Key" />
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/" class="nav-item back-link">
+        <img src="assets/flechdark.webp" alt="flecha" class="back-arrow">
+      <span class="nav-label">Volver al inicio</span>
+      </a>
+      <div class="sidebar-divider"></div>
+      <p class="sidebar-section-label">Configuración</p>
+      <a class="nav-item" id="nav-llaves" onclick="showSection('llaves')">
+        <img src="assets/select.webp" class="select-bg" alt="" />
+        <i class="ti ti-key nav-icon"></i>
+        <span class="nav-label">Llaves (xpubs)</span>
+      </a>
+      <a class="nav-item" id="nav-reglas" onclick="showSection('reglas')">
+        <img src="assets/select.webp" class="select-bg" alt="" />
+        <i class="ti ti-adjustments-horizontal nav-icon"></i>
+        <span class="nav-label">Reglas de gasto</span>
+      </a>
+      <div class="sidebar-divider"></div>
+      <p class="sidebar-section-label">Resultado</p>
+      <a class="nav-item" id="nav-descriptor" onclick="showSection('descriptor')">
+        <img src="assets/select.webp" class="select-bg" alt="" />
+        <i class="ti ti-file-description nav-icon"></i>
+        <span class="nav-label">Descriptor</span>
+      </a>
+      <a class="nav-item" id="nav-direcciones" onclick="showSection('direcciones')">
+        <img src="assets/select.webp" class="select-bg" alt="" />
+        <i class="ti ti-map-2 nav-icon"></i>
+        <span class="nav-label">Direcciones</span>
+      </a>
+      <div class="sidebar-divider"></div>
+      <p class="sidebar-section-label">Operación</p>
+      <a class="nav-item" id="nav-firmar" onclick="showSection('firmar')">
+        <img src="assets/select.webp" class="select-bg" alt="" />
+        <i class="ti ti-lock nav-icon"></i>
+        <span class="nav-label">Firmar (PSBT)</span>
+      </a>
+    </nav>
+    <div class="gold-rule">
+      <img src="assets/sugerencia.webp" alt="" class="gold-rule-bg" />
+      <div class="gold-rule-text">
+        <p class="gold-rule-title">Regla de oro:</p>
+        <p class="gold-rule-body">Solo llaves públicas.<br>Nunca seeds. Nunca.</p>
+        <img src="assets/Multilinea.webp" alt="" class="gold-rule-deco" />
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- LLAVES -->
+    <div class="section" id="section-llaves">
+      <div class="content-area">
+        <div class="left-panel">
+          <div class="page-header">
+            <h1 class="page-title">Gestión de llaves</h1>
+            <p class="page-subtitle">Ingresa las xpubs de cada firmante de tu bóveda</p>
+            <img src="assets/objeto2.webp" alt="" class="page-deco-line" id="decoLineLlaves" />
+          </div>
+          <div class="main-card" id="mainCardLlaves">
+            <div class="card-header">
+              <div class="card-header-icon"><img src="assets/llaveicono.svg" alt="" style="width:32px;height:32px;object-fit:contain;" /></div>
+              <h2>Firmantes</h2>
+            </div>
+            <div class="signer-block" id="signersList">
+              <div class="signer-entry" id="signer-1">
+                <p class="signer-label">Firmante 1</p>
+                <p class="xpub-label">xpub / ypub / zpub</p>
+                <textarea class="xpub-input" placeholder="xpub6C4s5jFMSEfFtMWHGiuHyJWFzBVBXnVQGK5xkqBGnS5R..." oninput="updateFingerprint(this, 'fp-1')"></textarea>
+                <p class="xpub-hint">Formato: xpub… (~111 chars) · de Ledger, Trezor, Coldcard, Sparrow…</p>
+                <div class="fingerprint-row">
+                  <span class="fingerprint-label">Fingerprint:</span>
+                  <span class="fingerprint-value" id="fp-1">—</span>
+                </div>
+              </div>
+            </div>
+            <button class="add-signer-btn" onclick="addSigner()"><i class="ti ti-plus"></i> Añadir firmante</button>
+            <div class="tip-box">
+              <i class="ti ti-bulb tip-icon"></i>
+              <p class="tip-text">Una xpub real empieza con xpub, ypub o zpub y tiene ~111 caracteres. Puedes obtenerla de tu hardware wallet (Ledger, Trezor, Coldcard) en la opción "Exportar cuenta pública".</p>
+            </div>
+            <div class="next-btn-wrap">
+              <button class="next-btn" onclick="showSection('reglas')">
+                <img src="assets/button.webp" alt="" class="next-btn-bg" />
+                <span class="next-btn-text">Siguiente: Reglas <span class="btn-arrow">→</span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="right-panel">
+          <div class="glossary-card" id="glossaryCardLlaves">
+            <div class="glossary-header">
+              <div class="glossary-icon"><img src="assets/pregunicono.svg" alt="" style="width:32px;height:32px;object-fit:contain;" /></div>
+              <h3>Firmantes</h3>
+            </div>
+            <div class="glossary-item"><p class="glossary-q">¿Qué es un firmante?</p><p class="glossary-a">Un firmante es cualquier dispositivo o persona que guarda una de las llaves de tu bóveda. Por ejemplo: tu <strong>Ledger</strong>, el <strong>Coldcard</strong> de un familiar, o una llave en papel guardada en la caja fuerte.</p></div>
+            <div class="glossary-item"><p class="glossary-q">¿Cuántos firmantes necesito?</p><p class="glossary-a">Puedes tener tantos como quieras — 2, 3, 5… Luego decides cuántos tienen que firmar juntos para mover los fondos (eso es el umbral <strong>M-de-N</strong> que configuras en la siguiente pantalla).</p></div>
+            <div class="glossary-item"><p class="glossary-q">¿Qué es una xpub?</p><p class="glossary-a">Cada firmante aporta su <strong>xpub</strong> (llave pública extendida), que puedes exportar desde tu hardware wallet sin exponer la llave privada.</p></div>
+            <div class="glossary-cta"><i class="ti ti-arrow-down"></i><span>Pulsa <strong>"Añadir firmante"</strong> para empezar.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ REGLAS DE GASTO ══════════ -->
+    <div class="section active" id="section-reglas">
+      <div class="content-area">
+        <div class="left-panel">
+          <div class="page-header">
+            <h1 class="page-title">Reglas de gasto</h1>
+            <p class="page-subtitle">Define cuántas firmas y condiciones de tiempo</p>
+            <img src="assets/objeto2.webp" alt="" class="page-deco-line" id="decoLineReglas" />
+          </div>
+          <div class="main-card" id="mainCardReglas">
+            <div class="card-header">
+              <div class="card-header-icon"><img src="assets/llaveicono.svg" alt="" style="width:32px;height:32px;object-fit:contain;" /></div>
+              <h2>Multisig — M de N firmas</h2>
+            </div>
+            <div class="mn-block">
+              <p class="mn-label">Número mínimo de firmas (M)</p>
+              <div class="mn-row">
+                <input type="number" class="mn-number" value="2" min="1" max="15" />
+                <span class="mn-of">de</span>
+                <span class="mn-total">3 firmas requeridas</span>
+                <span class="mn-badge">Seguro aunque pierdas 1 llave</span>
+              </div>
+            </div>
+
+            <div>
+              <p class="timelock-label">Bloqueo de tiempo (Timelock) — Opcional</p>
+              <div class="timelock-grid">
+
+                <!-- Sin timelock — seguriicono.svg -->
+                <div class="tl-option selected" id="tl-none" onclick="selectTimelock('none')">
+                  <img src="assets/seguriicono.svg" alt="" class="tl-svg-icon" />
+                  <span class="tl-name">Sin timelock</span>
+                  <span class="tl-desc">Solo multisig</span>
+                </div>
+
+                <!-- Relativo — tiempoicono.svg -->
+                <div class="tl-option" id="tl-relative" onclick="selectTimelock('relative')">
+                  <img src="assets/tiempoicono.svg" alt="" class="tl-svg-icon" />
+                  <span class="tl-name">Relativo (older)</span>
+                  <span class="tl-desc">Inactividad → recuperar</span>
+                </div>
+
+                <!-- Absoluto — calenicono.svg -->
+                <div class="tl-option" id="tl-absolute" onclick="selectTimelock('absolute')">
+                  <img src="assets/calenicono.svg" alt="" class="tl-svg-icon" />
+                  <span class="tl-name">Absoluto (after)</span>
+                  <span class="tl-desc">Fecha fija de desbloqueo</span>
+                </div>
+
+                <!-- Combo herencia — herenicono.svg -->
+                <div class="tl-option" id="tl-combo" onclick="selectTimelock('combo')">
+                  <img src="assets/herenicono.svg" alt="" class="tl-svg-icon" />
+                  <span class="tl-name">Combo herencia</span>
+                  <span class="tl-desc">Multisig + recuperación</span>
+                </div>
+
+              </div>
+
+              <div class="tl-panel" id="panel-relative">
+                <div class="tl-panel-inner">
+                  <p class="tl-panel-title">Si no hay movimiento de fondos en:</p>
+                  <div class="field-row">
+                    <div style="flex:1"><p class="field-label">Cantidad</p><input type="number" class="field-input" placeholder="6" min="1" /></div>
+                    <div><p class="field-label">Unidad</p><select class="field-select"><option>Meses</option><option>Semanas</option><option>Días</option><option>Bloques</option></select></div>
+                  </div>
+                  <div class="field-group"><p class="field-label">Llave de recuperación (xpub)</p><textarea class="xpub-input-sm" placeholder="xpub…"></textarea></div>
+                  <div class="panel-warn"><i class="ti ti-refresh panel-warn-icon"></i><p class="panel-warn-text">Genera: <code>older(N)</code> — bloqueo relativo por bloques de inactividad</p></div>
+                </div>
+              </div>
+              <div class="tl-panel" id="panel-absolute">
+                <div class="tl-panel-inner">
+                  <p class="tl-panel-title">Fecha fija de desbloqueo</p>
+                  <div class="field-group"><p class="field-label">Fecha de desbloqueo</p><input type="date" class="field-date" /></div>
+                  <div class="panel-warn"><i class="ti ti-calendar panel-warn-icon"></i><p class="panel-warn-text">Genera: <code>after(N)</code> — fondos bloqueados hasta esa fecha o bloque. Si N ≥ 500,000,000 Bitcoin lo interpreta como timestamp Unix.</p></div>
+                </div>
+              </div>
+              <div class="tl-panel" id="panel-combo">
+                <div class="tl-panel-inner">
+                  <p class="tl-panel-title">Multisig + recuperación</p>
+                  <div class="field-group"><p class="field-label">Inactividad antes de activar recuperación</p>
+                    <div class="combo-dur-row"><input type="number" class="field-input combo-dur-input" placeholder="12" min="1" /><select class="field-select"><option>Días</option><option>Semanas</option><option>Meses</option></select></div>
+                  </div>
+                  <div class="field-group"><p class="field-label">Llave de recuperación (xpub del heredero)</p><textarea class="xpub-input-sm" placeholder="xpub…"></textarea></div>
+                  <div class="panel-warn"><i class="ti ti-lock panel-warn-icon"></i><p class="panel-warn-text">Genera: <code>or_d(thresh(…), and_v(v:pk(recovery), older(N)))</code></p></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-row" style="margin-top:1.25rem;">
+              <button class="back-btn" onclick="showSection('llaves')"><i class="ti ti-arrow-left"></i> Atrás</button>
+              <div class="next-btn-wrap" style="margin-right:-1rem;">
+                <button class="next-btn" onclick="showSection('descriptor')">
+                  <img src="assets/button.webp" alt="" class="next-btn-bg" />
+                  <span class="next-btn-text">Ver Descriptor <span class="btn-arrow">→</span></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="right-panel">
+          <div class="glossary-card" id="glossaryCardReglas">
+            <div class="glossary-header"><div class="glossary-icon"><img src="assets/pregunicono.svg" alt="" style="width:32px;height:32px;object-fit:contain;" /></div><h3>Reglas de gasto</h3></div>
+            <div class="glossary-item"><p class="glossary-q">¿Qué es M-de-N?</p><p class="glossary-a">Es el umbral de firmas necesarias para mover fondos. Si tu bóveda es <strong>2-de-3</strong>, necesitas 2 de las 3 llaves disponibles para autorizar cualquier transacción.</p></div>
+            <div class="glossary-item"><p class="glossary-q">¿Para qué sirve el timelock?</p><p class="glossary-a">Un timelock agrega una capa de protección temporal. Por ejemplo, puedes configurar que una llave de recuperación solo se active si no ha habido movimiento en <strong>12 meses</strong> — ideal para planes de herencia.</p></div>
+            <div class="glossary-item"><p class="glossary-q">¿Qué es older vs after?</p><p class="glossary-a"><strong>older(N)</strong> es un bloqueo relativo: se cuenta desde el último gasto. <strong>after(N)</strong> es absoluto: una fecha fija en el calendario o una altura de bloque específica.</p></div>
+            <div class="glossary-item"><p class="glossary-q">¿Qué es el Combo herencia?</p><p class="glossary-a">Combina multisig normal con una ruta de recuperación: si las llaves principales no se usan durante cierto tiempo, un heredero puede recuperar los fondos usando solo su llave.</p></div>
+            <div class="glossary-cta"><i class="ti ti-shield-check"></i><span>El <strong>Combo herencia</strong> es el más completo para protección a largo plazo.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESCRIPTOR -->
+    <div class="section" id="section-descriptor">
+      <div class="content-area">
+        <div class="left-panel">
+          <div class="page-header">
+            <h1 class="page-title">Descriptor generado</h1>
+            <p class="page-subtitle">Actualizado en tiempo real según tu configuración</p>
+            <img src="assets/objeto2.webp" alt="" class="page-deco-line" id="decoLineDescriptor" />
+          </div>
+          <div class="main-card" id="mainCardDescriptor">
+            <div class="card-header">
+              <div class="card-header-icon"><img src="assets/llaveicono.svg" alt="" style="width:32px;height:32px;object-fit:contain;" /></div>
+              <h2>Descriptor (Miniscript)</h2>
+            </div>
+            <div class="descriptor-meta">
+              <div class="desc-meta-card"><span class="desc-meta-label">Tipo</span><span class="desc-meta-value">2-de-0</span><span class="desc-meta-sub">Multisig P2WSH</span></div>
+              <div class="desc-meta-card"><span class="desc-meta-label">Firmantes</span><span class="desc-meta-value">0/0</span><span class="desc-meta-sub">xpubs configuradas</span></div>
+              <div class="desc-meta-card"><span class="desc-meta-label">Timelock</span><span class="desc-meta-value" style="font-size:0.92rem;font-family:var(--font-body);font-weight:600;">after()</span><span class="desc-meta-sub">timelock activo</span></div>
+            </div>
+            <div class="descriptor-block">
+              <div class="descriptor-block-label">Descriptor en Miniscript <span>Copia exacta para importar</span></div>
+              <div class="descriptor-code-wrap">
+                <pre class="descriptor-code">wsh(and_v(v:sortedmulti(2,),after(900000)))</pre>
+                <button class="descriptor-copy-btn" title="Copiar" onclick="copyToClipboard('wsh(and_v(v:sortedmulti(2,),after(900000)))', this)"><i class="ti ti-copy"></i></button>
+              </div>
+            </div>
+            <div class="desc-warning">
+              <i class="ti ti-alert-triangle desc-warning-icon"></i>
+              <p class="desc-warning-text">⚠ Ingresa al menos una xpub en la sección <strong>Llaves</strong> para generar un descriptor válido.</p>
+            </div>
+            <div class="descriptor-export">
+              <p class="descriptor-export-label">Descriptor en texto plano (para exportar)</p>
+              <div class="descriptor-export-btns">
+                <button class="export-btn export-btn-outline" onclick="downloadDescriptor()"><i class="ti ti-download"></i> Descargar .txt</button>
+                <button class="export-btn export-btn-outline" onclick="copyToClipboard('wsh(and_v(v:sortedmulti(2,),after(900000)))', this)"><i class="ti ti-clipboard"></i> Copiar al portapapeles</button>
+              </div>
+            </div>
+            <div class="btn-row" style="margin-top:1.5rem;">
+              <button class="back-btn" onclick="showSection('reglas')"><i class="ti ti-arrow-left"></i> Atrás</button>
+              <div class="next-btn-wrap" style="margin-right:-1rem;">
+                <button class="next-btn" onclick="showSection('direcciones')">
+                  <img src="assets/button.webp" alt="" class="next-btn-bg" />
+                  <span class="next-btn-text">Ver Direcciones <span class="btn-arrow">→</span></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="right-panel">
+          <div class="glossary-card" id="glossaryCardDescriptor">
+            <div class="glossary-header"><div class="glossary-icon"><img src="assets/pregunicono.svg" alt="" style="width:32px;height:32px;object-fit:contain;" /></div><h3>Descriptor</h3></div>
+            <div class="glossary-item"><p class="glossary-q">¿Qué es un descriptor?</p><p class="glossary-a">Un descriptor es una cadena de texto que describe exactamente <strong>cómo se puede gastar</strong> una salida de Bitcoin: qué llaves, cuántas firmas, y qué condiciones de tiempo.</p></div>
+            <div class="glossary-item"><p class="glossary-q">¿Qué es P2WSH?</p><p class="glossary-a">Pay-to-Witness-Script-Hash es el formato de dirección estándar para <strong>multisig moderno</strong>. Produce direcciones que empiezan por <strong>bc1q…</strong> y son más eficientes en comisiones que el formato antiguo.</p></div>
+            <div class="glossary-item"><p class="glossary-q">¿Qué es sortedmulti?</p><p class="glossary-a"><strong>sortedmulti</strong> ordena automáticamente las llaves públicas antes de construir el script. Esto garantiza que la dirección generada sea siempre la misma independientemente del orden en que introduzcas las xpubs.</p></div>
+            <div class="glossary-item"><p class="glossary-q">¿Dónde importo el descriptor?</p><p class="glossary-a">Puedes importarlo en <strong>Sparrow Wallet</strong>, <strong>Specter Desktop</strong>, <strong>Bitcoin Core</strong> (importdescriptors) o cualquier cartera compatible con descriptores de salida.</p></div>
+            <div class="glossary-cta"><i class="ti ti-shield-check"></i><span>Guarda el descriptor en un lugar seguro — sin él no podrás reconstruir la bóveda.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DIRECCIONES -->
+    <div class="section" id="section-direcciones">
+      <div class="content-area">
+        <div class="left-panel">
+          <div class="page-header">
+            <h1 class="page-title">Direcciones de recepción</h1>
+            <p class="page-subtitle">Generadas desde tu descriptor</p>
+            <img src="assets/objeto2.webp" alt="" class="page-deco-line" id="decoLineDirecciones" />
+          </div>
+          <div class="main-card" id="mainCardDirecciones">
+            <div class="card-header"><div class="card-header-icon"><img src="assets/llaveicono.svg" alt="" style="width:32px;height:32px;object-fit:contain;" /></div><h2>Tipo de dirección</h2></div>
+            <div class="addr-type-tabs">
+              <div class="addr-tab" id="tab-segwit" onclick="selectAddrType('segwit')"><div class="addr-tab-title">SegWit v0 <span class="addr-privacy-text">P2WSH</span></div><span class="addr-tab-desc">bc1q… · compatible Sparrow/Coldcard</span></div>
+              <div class="addr-tab selected" id="tab-taproot" onclick="selectAddrType('taproot')"><div class="addr-tab-title">Taproot <span class="addr-privacy-text">P2TR</span></div><span class="addr-tab-desc">bc1p… · privacidad mejorada · SegWit v1</span></div>
+            </div>
+            <div class="addr-privacy-note"><i class="ti ti-refresh addr-autoswitch-icon"></i><p class="addr-privacy-text"><strong> Cambiado automáticamente a Taproot</strong><br>Tu bóveda tiene una condición de tiempo activa. SegWit v0 (bc1q…) no puede incluir esa condición dentro de la dirección. Taproot (bc1p…) sí lo soporta.</p></div>
+            <div class="addr-privacy-note"><i class="ti ti-info-circle addr-privacy-icon"></i><p class="addr-privacy-text"> Direcciones reales derivadas criptográficamente con bitcoinjs-lib directamente en tu navegador. Tus xpubs nunca salen a ningún servidor — todo el cómputo es local.</p></div>
+            <div class="addr-count-row">
+              <span class="addr-count-label">Primeras direcciones</span>
+              <div class="addr-count-ctrl">
+                <button class="addr-count-btn" onclick="changeAddrCount(-5)">−</button>
+                <span class="addr-count-val" id="addrCountVal">10</span>
+                <button class="addr-count-btn" onclick="changeAddrCount(5)">+</button>
+              </div>
+            </div>
+            <div class="addr-list" id="addrList">
+              <div class="addr-row"><span class="addr-index">#0</span><span class="addr-value">bc1p5d7rjq7g6rdk96erx0ax8zk4gzfxuvjzwkxnnm8wj4ctna6u8seqp7vqa</span><button class="addr-copy-btn" onclick="copyAddr(this)" title="Copiar"><i class="ti ti-copy"></i></button></div>
+              <div class="addr-row"><span class="addr-index">#1</span><span class="addr-value">bc1pf4nf7lw68nkzfhdkgxllzgp3c9qm0e4n5gvzy8xzfkp3mrvkqxsqzqc6r</span><button class="addr-copy-btn" onclick="copyAddr(this)" title="Copiar"><i class="ti ti-copy"></i></button></div>
+              <div class="addr-row"><span class="addr-index">#2</span><span class="addr-value">bc1p3e8l8kfqnpr7qkz9xz5ml6c0h3g2fgjxqlxqr9yvhwtx8d4lmqsmr6xsw</span><button class="addr-copy-btn" onclick="copyAddr(this)" title="Copiar"><i class="ti ti-copy"></i></button></div>
+              <div class="addr-row"><span class="addr-index">#3</span><span class="addr-value">bc1pzs8j7lxnr4qmwepth2x9u3f5g6c0k8lvzqrjw6gn4yd5xa3c7sqf9zn3t</span><button class="addr-copy-btn" onclick="copyAddr(this)" title="Copiar"><i class="ti ti-copy"></i></button></div>
+              <div class="addr-row"><span class="addr-index">#4</span><span class="addr-value">bc1phj9k2nmw8vrqxe0yz5p4la7f3c6t9kvzl8qxjdmgn6yu2sb1w3sqz8p5r</span><button class="addr-copy-btn" onclick="copyAddr(this)" title="Copiar"><i class="ti ti-copy"></i></button></div>
+              <div class="addr-row"><span class="addr-index">#5</span><span class="addr-value">bc1pqm4nv9lrjzwfe38ux6y5h2k0g4p7cd8szqlxrjtgh5y3nb2e4qsn7qp6m</span><button class="addr-copy-btn" onclick="copyAddr(this)" title="Copiar"><i class="ti ti-copy"></i></button></div>
+              <div class="addr-row"><span class="addr-index">#6</span><span class="addr-value">bc1p8xk3nv6lrjzwfe39ux5y4h2k0g3p6cd7szqlxrjtgh4y2nb1e3qsn6qp5</span><button class="addr-copy-btn" onclick="copyAddr(this)" title="Copiar"><i class="ti ti-copy"></i></button></div>
+              <div class="addr-row"><span class="addr-index">#7</span><span class="addr-value">bc1prk9m3wvlrjzafe28ux4y3h1k9g2p5cd6szqlxrjtfh3y1nb0e2qsn5qp4</span><button class="addr-copy-btn" onclick="copyAddr(this)" title="Copiar"><i class="ti ti-copy"></i></button></div>
+              <div class="addr-row"><span class="addr-index">#8</span><span class="addr-value">bc1pek8l2nulrjzafe17ux3y2h0k8g1p4cd5szqlxrjteh2y0na9e1qsn4qp3</span><button class="addr-copy-btn" onclick="copyAddr(this)" title="Copiar"><i class="ti ti-copy"></i></button></div>
+              <div class="addr-row"><span class="addr-index">#9</span><span class="addr-value">bc1pdj7k1ntlrjzafe06ux2y1h9k7g0p3cd4szqlxrjtdh1y9na8e0qsn3qp2</span><button class="addr-copy-btn" onclick="copyAddr(this)" title="Copiar"><i class="ti ti-copy"></i></button></div>
+            </div>
+            <div class="btn-row" style="margin-top:1.5rem;">
+              <button class="back-btn" onclick="showSection('descriptor')"><i class="ti ti-arrow-left"></i> Descriptor</button>
+              <div class="next-btn-wrap" style="margin-right:-1rem;">
+                <button class="next-btn" onclick="showSection('firmar')">
+                  <img src="assets/button.webp" alt="" class="next-btn-bg" />
+                  <span class="next-btn-text">Firmar (PSBT) <span class="btn-arrow">→</span></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="right-panel">
+          <div class="glossary-card" id="glossaryCardDirecciones">
+            <div class="glossary-header"><div class="glossary-icon"><img src="assets/pregunicono.svg" alt="" style="width:32px;height:32px;object-fit:contain;" /></div><h3>Direcciones</h3></div>
+            <div class="glossary-item"><p class="glossary-q">¿Qué es SegWit v0?</p><p class="glossary-a">El estándar multisig más compatible. Produce direcciones <strong>bc1q…</strong> (P2WSH). Funciona con casi cualquier hardware wallet y software. No soporta condiciones de tiempo dentro de la dirección.</p></div>
+            <div class="glossary-item"><p class="glossary-q">¿Qué es Taproot?</p><p class="glossary-a">La actualización más reciente de Bitcoin (2021). Produce direcciones <strong>bc1p…</strong> (P2TR). Mejora la privacidad porque las transacciones se ven iguales sin importar las condiciones de gasto, y soporta timelocks dentro de la dirección.</p></div>
+            <div class="glossary-item"><p class="glossary-q">¿Puedo usar la misma dirección dos veces?</p><p class="glossary-a">No — reutilizar direcciones reduce tu privacidad. Cada pago debe ir a una <strong>dirección nueva</strong>. Tu bóveda puede generar cientos de direcciones desde el mismo descriptor.</p></div>
+            <div class="glossary-item"><p class="glossary-q">¿Son seguras estas direcciones?</p><p class="glossary-a">Sí. Se derivan localmente en tu navegador desde las xpubs — sin enviar datos a ningún servidor. Las xpubs son llaves públicas: no se puede robar fondos con ellas, solo <strong>ver el saldo</strong>.</p></div>
+            <div class="glossary-cta"><i class="ti ti-shield-check"></i><span>Usa una dirección nueva para cada recepción. Tu historial queda protegido.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FIRMAR PSBT -->
+    <div class="section" id="section-firmar">
+      <div class="content-area">
+        <div class="left-panel">
+          <div class="page-header">
+            <h1 class="page-title">Firmar transacción</h1>
+            <p class="page-subtitle">Coordina las firmas entre dispositivos (PSBT)</p>
+            <img src="assets/objeto2.webp" alt="" class="page-deco-line" id="decoLineFirmar" />
+          </div>
+          <div class="main-card" id="mainCardFirmar">
+            <div class="card-header">
+              <div class="card-header-icon"><img src="assets/llaveicono.svg" alt="" style="width:32px;height:32px;object-fit:contain;" /></div>
+              <h2>Cargar PSBT</h2>
+            </div>
+            <div class="psbt-dropzone" id="psbtDropzone">
+              <input type="file" class="psbt-drop-input" id="psbtFileInput" accept=".psbt,.txt" onchange="handleFileUpload(event)" />
+              <i class="ti ti-file-upload psbt-drop-icon" id="psbtDropIcon"></i>
+              <p class="psbt-drop-title" id="psbtDropTitle">Arrastra tu archivo .psbt aquí</p>
+              <p class="psbt-drop-sub" id="psbtDropSub">o haz clic para seleccionar desde tu equipo</p>
+            </div>
+            <div class="psbt-or">
+              <div class="psbt-or-line"></div>
+              <span class="psbt-or-text">o pega en Base64</span>
+              <div class="psbt-or-line"></div>
+            </div>
+            <p class="xpub-label" style="margin-bottom:0.4rem;">PSBT en Base64</p>
+            <textarea class="psbt-textarea" id="psbtTextarea" placeholder="cHNidP8BAH0CAAAAAa7FuEyE6mBg..." oninput="onPsbtInput()"></textarea>
+            <div class="psbt-action-row">
+              <button class="psbt-btn psbt-btn-primary" onclick="analyzePsbt()">
+                <span class="psbt-spinner" id="psbtSpinner"></span>
+                <i class="ti ti-search" id="psbtAnalyzeIcon"></i>
+                Analizar PSBT
+              </button>
+              <button class="psbt-btn psbt-btn-secondary" onclick="loadExamplePsbt()"><i class="ti ti-flask"></i> Cargar PSBT de ejemplo</button>
+              <button class="psbt-btn psbt-btn-secondary" onclick="clearPsbt()"><i class="ti ti-trash"></i> Limpiar</button>
+            </div>
+            <div class="psbt-status-card" id="psbtStatusCard">
+              <div class="psbt-status-header">
+                <i class="ti ti-file-check" style="font-size:1.1rem;color:var(--gold);"></i>
+                <span class="psbt-status-title">Análisis de la transacción</span>
+                <span class="psbt-status-badge badge-pending" id="psbtStatusBadge">Pendiente de firmas</span>
+              </div>
+              <div class="psbt-status-body">
+                <div class="psbt-tx-details" id="psbtTxDetails">
+                  <div class="psbt-tx-item"><p class="psbt-tx-label">Monto enviado</p><p class="psbt-tx-value gold" id="txAmount">0.00215400 BTC</p></div>
+                  <div class="psbt-tx-item"><p class="psbt-tx-label">Comisión estimada</p><p class="psbt-tx-value" id="txFee">0.00001200 BTC</p></div>
+                  <div class="psbt-tx-item"><p class="psbt-tx-label">Entradas</p><p class="psbt-tx-value" id="txInputs">1 UTXO</p></div>
+                  <div class="psbt-tx-item"><p class="psbt-tx-label">Salidas</p><p class="psbt-tx-value" id="txOutputs">2 outputs</p></div>
+                </div>
+                <div class="psbt-progress-wrap">
+                  <div class="psbt-progress-label"><span>Firmas recopiladas</span><span id="psbtProgressLabel">1 de 2 requeridas</span></div>
+                  <div class="psbt-progress-track"><div class="psbt-progress-fill" id="psbtProgressFill" style="width:50%;"></div></div>
+                </div>
+                <div class="psbt-signer-list" id="psbtSignerList">
+                  <div class="psbt-signer-row">
+                    <div class="psbt-signer-icon signer-signed"><i class="ti ti-check"></i></div>
+                    <div class="psbt-signer-info"><p class="psbt-signer-name">Firmante 1 — Ledger</p><p class="psbt-signer-fp">Fingerprint: A3F9C201</p></div>
+                    <span class="psbt-signer-status status-signed"><i class="ti ti-circle-check"></i> Firmado</span>
+                  </div>
+                  <div class="psbt-signer-row">
+                    <div class="psbt-signer-icon signer-pending"><i class="ti ti-clock"></i></div>
+                    <div class="psbt-signer-info"><p class="psbt-signer-name">Firmante 2 — Coldcard</p><p class="psbt-signer-fp">Fingerprint: B8D24E10</p></div>
+                    <span class="psbt-signer-status status-pending"><i class="ti ti-dots"></i> Pendiente</span>
+                  </div>
+                  <div class="psbt-signer-row">
+                    <div class="psbt-signer-icon signer-pending"><i class="ti ti-clock"></i></div>
+                    <div class="psbt-signer-info"><p class="psbt-signer-name">Firmante 3 — Trezor</p><p class="psbt-signer-fp">Fingerprint: C1A05F33</p></div>
+                    <span class="psbt-signer-status status-pending"><i class="ti ti-dots"></i> Pendiente</span>
+                  </div>
+                </div>
+                <div class="tip-box" style="margin-bottom:0.85rem;">
+                  <i class="ti ti-bulb tip-icon"></i>
+                  <p class="tip-text">Para añadir una firma, exporta el PSBT a tu hardware wallet (Coldcard, Ledger, Trezor), firma allí, y vuelve a pegar el PSBT resultante arriba.</p>
+                </div>
+                <div class="psbt-final-strip">
+                  <button class="export-btn export-btn-outline" onclick="downloadPsbt()"><i class="ti ti-download"></i> Descargar PSBT</button>
+                  <button class="export-btn export-btn-outline" onclick="copyPsbt()"><i class="ti ti-clipboard"></i> Copiar Base64</button>
+                  <button class="psbt-btn-broadcast" id="broadcastBtn" disabled onclick="broadcastTx()"><i class="ti ti-broadcast"></i> Hacer broadcast</button>
+                </div>
+              </div>
+            </div>
+            <div class="tip-box" id="psbtInitialTip">
+              <i class="ti ti-info-circle tip-icon"></i>
+              <p class="tip-text">Un <strong>PSBT</strong> (Partially Signed Bitcoin Transaction) es un formato estándar (BIP-174) para coordinar firmas entre múltiples dispositivos sin exponer llaves privadas. Cada firmante añade su firma de forma independiente.</p>
+            </div>
+            <div class="btn-row" style="margin-top:1.25rem;">
+              <button class="back-btn" onclick="showSection('direcciones')"><i class="ti ti-arrow-left"></i> Atrás</button>
+            </div>
+          </div>
+        </div>
+        <div class="right-panel">
+          <div class="glossary-card" id="glossaryCardFirmar">
+            <div class="glossary-header"><div class="glossary-icon"><img src="assets/pregunicono.svg" alt="" style="width:32px;height:32px;object-fit:contain;" /></div><h3>Firmar (PSBT)</h3></div>
+            <div class="glossary-item"><p class="glossary-q">¿Qué es un PSBT?</p><p class="glossary-a">Un <strong>PSBT</strong> (Partially Signed Bitcoin Transaction) es una transacción a medio firmar. Permite que cada firmante añada su firma de forma independiente antes de hacer broadcast a la red.</p></div>
+            <div class="glossary-item"><p class="glossary-q">¿Cómo funciona el flujo?</p><p class="glossary-a">El iniciador crea el PSBT → lo pasa al Firmante 1 (firma con su hardware wallet) → pasa al Firmante 2 → cuando se alcanzan M firmas, se hace <strong>broadcast</strong> a la red Bitcoin.</p></div>
+            <div class="glossary-item"><p class="glossary-q">¿Es seguro pegar el PSBT aquí?</p><p class="glossary-a">Sí. El PSBT contiene la transacción y las firmas parciales, pero <strong>no contiene llaves privadas</strong>. Todo el análisis ocurre localmente en tu navegador — no se envía nada a servidores externos.</p></div>
+            <div class="glossary-item"><p class="glossary-q">¿Qué es el broadcast?</p><p class="glossary-a">Una vez que el PSBT tiene las M firmas requeridas, se <strong>finaliza</strong> y se envía a la red Bitcoin (broadcast). Desde ese momento la transacción es visible en la blockchain.</p></div>
+            <div class="glossary-item"><p class="glossary-q">¿Qué wallets generan PSBTs?</p><p class="glossary-a"><strong>Sparrow Wallet</strong>, <strong>Specter Desktop</strong>, <strong>Bitcoin Core</strong>, y la mayoría de hardware wallets modernos (Coldcard, Ledger, Trezor, Foundation Passport) soportan PSBT de forma nativa.</p></div>
+            <div class="glossary-cta"><i class="ti ti-shield-check"></i><span>Las llaves privadas <strong>nunca</strong> entran a esta herramienta. Solo PSBTs y xpubs.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div id="toastContainer"></div>
+<script src="js/builder/vault-lib.bundle.js"></script>
+<script src="js/builder/vault-backend.js"></script>
+
+<script src="js/builder/toast.js"></script>
+<script src="js/builder/navigation.js"></script>
+
+<script src="js/builder/vault-app.js"></script>
+</body>
+</html>

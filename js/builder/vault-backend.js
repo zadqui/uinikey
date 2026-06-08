@@ -29,13 +29,34 @@ class Signer {
     this.id          = id;
     this.alias       = alias;
     this.xpub        = xpub;
+    this.masterFingerprint = ''; // e.g. d34db33f
+    this.derivationPath    = "84'/0'/0'"; // e.g. 84'/0'/0'
     this._valid      = false;
     this._fingerprint = null;
   }
 
-  /** Actualiza la xpub y re-valida contra bitcoinjs-lib */
+  /**
+   * Actualiza la xpub y re-valida.
+   * Acepta dos formatos:
+   *   1. [fingerprint/derivationPath]xpub.../0/*  → extrae los 3 componentes
+   *   2. xpub...                                  → solo xpub, sin origen
+   */
   setXpub(raw) {
-    this.xpub = (raw || '').trim();
+    const trimmed = (raw || '').trim();
+
+    // Detectar formato [fingerprint/path]xpub...
+    const originMatch = trimmed.match(/^\[([0-9a-fA-F]{8})\/([^\]]+)\]([a-zA-Z0-9]+)/);
+    if (originMatch) {
+      this.masterFingerprint = originMatch[1].toLowerCase();
+      this.derivationPath    = originMatch[2];
+      // Extraer solo la xpub (hasta /0/* o fin de string)
+      const xpubRaw = originMatch[3];
+      this.xpub = xpubRaw.replace(/\/0\/\*$/, '').replace(/\/\*$/, '');
+    } else {
+      // Formato simple: solo xpub
+      this.xpub = trimmed.replace(/\/0\/\*$/, '').replace(/\/\*$/, '');
+    }
+
     this._validate();
   }
 
@@ -73,10 +94,15 @@ class Signer {
 
   /**
    * Representación de la llave para usar en descriptores exportables.
-   * Devuelve la xpub completa con ruta de derivación externa.
+   * Formato: [fingerprint/derivationPath]xpub/0/*
    */
   toDescriptorKey() {
     if (!this._valid || !this.xpub) return null;
+    const fp   = (this.masterFingerprint || '').trim();
+    const path = (this.derivationPath   || "84'/0'/0'").trim();
+    if (fp && fp.length === 8) {
+      return `[${fp}/${path}]${this.xpub}/0/*`;
+    }
     return `${this.xpub}/0/*`;
   }
 
@@ -91,12 +117,14 @@ class Signer {
 
   /** Serializa el firmante para persistencia */
   toJSON() {
-    return { id: this.id, alias: this.alias, xpub: this.xpub };
+    return { id: this.id, alias: this.alias, xpub: this.xpub, masterFingerprint: this.masterFingerprint, derivationPath: this.derivationPath };
   }
 
   /** Restaura un firmante desde un objeto plano */
   static fromJSON(obj) {
     const s = new Signer(obj.id, window.BitcoinVault, obj.alias, '');
+    s.masterFingerprint = obj.masterFingerprint || '';
+    s.derivationPath    = obj.derivationPath    || "84'/0'/0'";
     s.setXpub(obj.xpub);
     return s;
   }
@@ -624,6 +652,18 @@ class VaultState {
   updateXpub(id, val) {
     const signer = this.signers.find(s => s.id === id);
     if (signer) signer.setXpub(val);
+  }
+
+  /** Actualiza el master fingerprint de un firmante por ID */
+  updateFingerprint(id, val) {
+    const signer = this.signers.find(s => s.id === id);
+    if (signer) signer.masterFingerprint = (val || '').trim().toLowerCase();
+  }
+
+  /** Actualiza la ruta de derivación de un firmante por ID */
+  updateDerivationPath(id, val) {
+    const signer = this.signers.find(s => s.id === id);
+    if (signer) signer.derivationPath = (val || "84'/0'/0'").trim();
   }
 
   /** Asegura que M nunca supere N */

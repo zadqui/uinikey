@@ -1,0 +1,25 @@
+/* DESCRIPTOR */
+    .descriptor-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.25rem; }
+    .desc-meta-card { background: rgba(242,237,228,0.6); border: 0.5px solid rgba(160,140,100,0.18); border-radius: 16px; padding: 0.85rem 1rem; display: flex; flex-direction: column; gap: 0.25rem; }
+    .desc-meta-label { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; }
+    .desc-meta-value { font-family: var(--font-display); font-size: 1.15rem; font-weight: 500; color: var(--ink); line-height: 1.2; }
+    .desc-meta-sub { font-size: 0.72rem; color: var(--text-muted); font-weight: 400; }
+    .descriptor-block { margin-bottom: 1.1rem; }
+    .descriptor-block-label { font-size: 0.78rem; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; letter-spacing: 0.01em; display: flex; align-items: center; justify-content: space-between; }
+    .descriptor-block-label span { color: var(--text-muted); font-weight: 400; font-size: 0.72rem; }
+    .descriptor-code-wrap { position: relative; background: rgba(26,22,18,0.04); border: 0.5px solid rgba(160,140,100,0.22); border-radius: 16px; padding: 1rem 1rem 1rem 1.1rem; overflow: hidden; }
+    .descriptor-code-wrap::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); border-radius: 3px 0 0 3px; }
+    .descriptor-code { font-family: 'DM Mono', 'Courier New', monospace; font-size: 0.8rem; color: var(--ink); word-break: break-all; line-height: 1.65; margin: 0; padding-right: 2.5rem; }
+    .descriptor-copy-btn { position: absolute; top: 0.75rem; right: 0.75rem; background: rgba(255,255,255,0.7); border: 0.5px solid rgba(160,140,100,0.22); border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-muted); font-size: 0.9rem; transition: background 0.2s, color 0.2s, transform 0.18s; }
+    .descriptor-copy-btn:hover { background: rgba(255,255,255,0.95); color: var(--gold); transform: scale(1.1); }
+    .desc-warning { background: rgba(212,160,23,0.07); border: 0.5px solid rgba(212,160,23,0.25); border-radius: 12px; padding: 0.75rem 1rem; display: flex; align-items: flex-start; gap: 0.6rem; margin-bottom: 1.1rem; }
+    .desc-warning-icon { font-size: 1rem; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
+    .desc-warning-text { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; }
+    .descriptor-export { border-top: 0.5px solid rgba(160,140,100,0.15); padding-top: 1.1rem; }
+    .descriptor-export-label { font-size: 0.78rem; font-weight: 600; color: var(--ink); margin-bottom: 0.65rem; letter-spacing: 0.01em; }
+    .descriptor-export-btns { display: flex; gap: 0.65rem; }
+    .export-btn { display: flex; align-items: center; gap: 0.45rem; padding: 0.65rem 1.1rem; border-radius: 12px; font-family: var(--font-body); font-size: 0.82rem; font-weight: 600; cursor: pointer; }
+    .export-btn-outline { background: rgba(255,255,255,0.6); border: 0.5px solid rgba(160,140,100,0.28); color: var(--ink); }
+    .export-btn-outline:hover { background: rgba(255,255,255,0.9); border-color: rgba(160,140,100,0.5); }
+    .export-btn-outline i { font-size: 0.95rem; color: var(--text-muted); }
+    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #34a853; }
